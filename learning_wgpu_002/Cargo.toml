@@ -1,0 +1,40 @@
+[package]
+name = "learning_wgpu_002"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# Allow rlib to run wgpu in desktop environment & cdylib to create Web Assembly that the browser will run
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# macro
+cfg-if = "1"
+
+# Initialize & Create Window
+winit = "0.28"
+env_logger = "0.10"
+log = "0.4"
+wgpu = "0.18"
+
+# new dependencies
+pollster = "0.3"
+
+# tells Cargo to only include this dependencies if we are targeting the wasm32 architecture
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+console_error_panic_hook = "0.1.6"
+console_log = "1.0"
+wgpu = { version = "0.18", features = ["webgl"]}
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4.30"
+web-sys = { version = "0.3", features = [
+    "Document",
+    "Window",
+    "Element",
+]}
+
+[[bin]]
+name = "learning_wgpu_002"
+path = "src/main.rs"
